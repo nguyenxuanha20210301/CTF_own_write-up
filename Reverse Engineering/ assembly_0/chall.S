@@ -34,23 +34,23 @@ main:
 	str	x19, [sp, 16] 
 	str	w0, [x29, 44] 
 	str	x1, [x29, 32]
-	ldr	x0, [x29, 32]
-	add	x0, x0, 8
-	ldr	x0, [x0]
+	ldr	x0, [x29, 32]  ;arg0
+	add	x0, x0, 8	;arg1
+	ldr	x0, [x0] ;arg1 = "182476535'
 	bl	atoi
-	mov	w19, w0
-	ldr	x0, [x29, 32]
-	add	x0, x0, 16
-	ldr	x0, [x0]
+	mov	w19, w0  ;w0 = w19 = 182476535
+	ldr	x0, [x29, 32] ;
+	add	x0, x0, 16  ;arg2
+	ldr	x0, [x0]; arg2 = "3742084308"
 	bl	atoi
-	mov	w1, w0
-	mov	w0, w19
-	bl	func1
-	mov	w1, w0
-	adrp	x0, .LC0
-	add	x0, x0, :lo12:.LC0
-	bl	printf
-	mov	w0, 0
+	mov	w1, w0   ; w1 = w0 = 3742084308
+	mov	w0, w19  ; w0 = 182476535
+	bl	func1 ;return greater value
+	mov	w1, w0 ; w0 = w1 =3742084308
+	adrp	x0, .LC0; "Result: %ld\n"
+	add	x0, x0, :lo12:.LC0 ;"-> result: 3742084308 -> hex(3742084308) -> '0xdf0bacd4' -> flag
+	bl	printf; 
+	mov	w0, 0; 
 	ldr	x19, [sp, 16]
 	ldp	x29, x30, [sp], 48
 	ret
